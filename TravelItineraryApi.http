@@ -1,0 +1,24 @@
+@TravelItineraryApi_HostAddress = http://localhost:5079
+
+GET {{TravelItineraryApi_HostAddress}}/api/UserProfiles
+Accept: application/json
+
+###
+POST {{TravelItineraryApi_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Vishn2u",
+  "email": "vishnu2@test.com",
+  "password": "Password1223!"
+}
+
+###
+POST {{TravelItineraryApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "vishnu@test.com",
+  "password": "Password123!"
+}
+###

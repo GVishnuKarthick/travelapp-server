@@ -1,0 +1,65 @@
+# Build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code / JetBrains IDE
+.vscode/
+.idea/
+
+# DotNet Core
+*.dotnet/
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+logs/
+*.err
+*.out
+
+# Secrets / environment files
+.env
+appsettings.Development.json
+appsettings.Local.json
+
+# Database files (if any local SQLite/MySQL dumps)
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Publish output
+publish/
+*.Publish.xml
+
+# Package directories
+packages/
+.nuget/
+*.nupkg
+
+# Generated files
+*.g.cs
+*.g.i.cs
+*.designer.cs
+*.dll
+*.pdb
+*.cache
+*.vsix
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Node modules if you have a frontend in the same repo
+node_modules/
+dist/
