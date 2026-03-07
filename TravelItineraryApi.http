@@ -1,4 +1,4 @@
-@TravelItineraryApi_HostAddress = http://localhost:5079
+@TravelItineraryApi_HostAddress = https://travelapp-server-tkn3.onrender.com
 
 GET {{TravelItineraryApi_HostAddress}}/api/UserProfiles
 Accept: application/json
