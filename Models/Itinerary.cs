@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using TravelPlanApi.Models;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace TravelPlanApi.Models;
+
+
 public class Itinerary
 {
     public int Id { get; set; }
@@ -19,13 +21,14 @@ public class Itinerary
 
     public string Image { get; set; } = string.Empty;
 
+    [Column(TypeName = "text[]")]
     public List<string> Activities { get; set; } = new();
 
     public int Days { get; set; }
 
     public List<DayPlan> DayPlans { get; set; } = new();
 
-    public List<TravelPlanApi.Models.Memory> Memories { get; set; } = new();
+    public List<Memory> Memories { get; set; } = new();
 
     public string UserProfileId { get; set; } = string.Empty;
 
