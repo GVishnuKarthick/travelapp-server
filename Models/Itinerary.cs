@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using TravelPlanApi.Models;
 
+namespace TravelPlanApi.Models;
 public class Itinerary
 {
     public int Id { get; set; }
