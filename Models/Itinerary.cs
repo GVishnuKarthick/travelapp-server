@@ -19,16 +19,16 @@ public class Itinerary
 
     public string Image { get; set; } = string.Empty;
 
-    public int Activities { get; set; }
+    public List<string> Activities { get; set; } = new();
 
     public int Days { get; set; }
 
     public List<DayPlan> DayPlans { get; set; } = new();
 
-    public List<Memory> Memories { get; set; } = new();
+    public List<TravelPlanApi.Models.Memory> Memories { get; set; } = new();
 
     public string UserProfileId { get; set; } = string.Empty;
 
-    [JsonIgnore]   // ⭐ ADD THIS
+    [JsonIgnore]
     public UserProfile? UserProfile { get; set; }
 }
