@@ -33,5 +33,9 @@ public class AppDbContext : IdentityDbContext<UserProfile>
         .WithMany(u => u.Memories)
         .HasForeignKey(m => m.UserProfileId)
         .OnDelete(DeleteBehavior.Cascade);
+
+         modelBuilder.Entity<DayPlan>()
+        .Property(dp => dp.Activities)
+        .HasColumnType("jsonb");
 }
 }
