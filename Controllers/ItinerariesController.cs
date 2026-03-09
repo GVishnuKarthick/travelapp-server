@@ -115,27 +115,7 @@ public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
 
             return NoContent();
         }
-  [HttpPost("{id}/dayplans")]
-public async Task<IActionResult> AddDayPlan(int id, [FromBody] DayPlan plan)
-{
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-    if (userId == null)
-        return Unauthorized();
-
-    var itinerary = await _context.Itineraries
-        .FirstOrDefaultAsync(i => i.Id == id && i.UserProfileId == userId);
-
-    if (itinerary == null)
-        return NotFound("Itinerary not found");
-
-    plan.ItineraryId = id;
-
-    _context.DayPlans.Add(plan);
-    await _context.SaveChangesAsync();
-
-    return Ok(plan);
-}
+ 
         // ==========================
         // DELETE: api/itineraries/{id}
         // ==========================
