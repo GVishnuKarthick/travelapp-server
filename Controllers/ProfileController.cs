@@ -7,7 +7,7 @@ namespace TravelPlanApi.Controllers;
 
 [ApiController]
 [Route("api/profile")]
-[Authorize]
+//[Authorize]
 public class ProfileController : ControllerBase
 {
     private readonly UserManager<UserProfile> _userManager;
