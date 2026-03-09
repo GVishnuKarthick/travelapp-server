@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace TravelPlanApi.Models;
 
 public class DayPlan
@@ -6,6 +8,9 @@ public class DayPlan
     public int Day { get; set; }
     public string Title { get; set; } = string.Empty;
     public List<string> Activities { get; set; } = new List<string>();
+
     public int ItineraryId { get; set; } // Foreign key
-    public Itinerary? Itinerary { get; set; } // Navigation
+
+    [JsonIgnore]   // ✅ ADD THIS
+    public Itinerary? Itinerary { get; set; }
 }
