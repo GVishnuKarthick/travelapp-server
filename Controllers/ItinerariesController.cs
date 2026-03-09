@@ -22,20 +22,21 @@ namespace TravelPlanApi.Controllers
         // ==========================
         // GET: api/itineraries
         // ==========================
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Itinerary>>> GetItineraries()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-                return Unauthorized();
+       [HttpGet]
+public async Task<ActionResult<IEnumerable<Itinerary>>> GetItineraries()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null)
+        return Unauthorized();
 
-            var itineraries = await _context.Itineraries
-                .Include(i => i.DayPlans)
-                .Where(i => i.UserProfileId == userId)
-                .ToListAsync();
+    var itineraries = await _context.Itineraries
+        .AsNoTracking() // prevents tracking issues
+        .Include(i => i.DayPlans)
+        .Where(i => i.UserProfileId == userId)
+        .ToListAsync();
 
-            return Ok(itineraries);
-        }
+    return Ok(itineraries);
+}
 
         // ==========================
         // GET: api/itineraries/{id}
@@ -125,7 +126,10 @@ public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItinerary(int id)
         {
-            var itinerary = await _context.Itineraries.FindAsync(id);
+           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+var itinerary = await _context.Itineraries
+    .FirstOrDefaultAsync(i => i.Id == id && i.UserProfileId == userId);
 
             if (itinerary == null)
                 return NotFound();
