@@ -60,21 +60,28 @@ namespace TravelPlanApi.Controllers
         // ==========================
         // POST: api/itineraries
         // ==========================
-        [HttpPost]
-        public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
-                return Unauthorized();
+    [HttpPost]
+public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == null)
+        return Unauthorized();
 
-            // Assign current user
-            itinerary.UserProfileId = userId;
+    // Assign current user
+    itinerary.UserProfileId = userId;
 
-            _context.Itineraries.Add(itinerary);
-            await _context.SaveChangesAsync();
+    // FIX: convert DateTimes to UTC
+    itinerary.StartDate = DateTime.SpecifyKind(itinerary.StartDate, DateTimeKind.Utc);
+    itinerary.EndDate = DateTime.SpecifyKind(itinerary.EndDate, DateTimeKind.Utc);
 
-            return CreatedAtAction(nameof(GetItinerary), new { id = itinerary.Id }, itinerary);
-        }
+    // Calculate days automatically
+    itinerary.Days = Math.Max(1, (itinerary.EndDate - itinerary.StartDate).Days);
+
+    _context.Itineraries.Add(itinerary);
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction(nameof(GetItinerary), new { id = itinerary.Id }, itinerary);
+}
 
         // ==========================
         // PUT: api/itineraries/{id}
@@ -99,8 +106,8 @@ namespace TravelPlanApi.Controllers
             existing.Destination = itinerary.Destination;
             existing.Description = itinerary.Description;
             existing.Budget = itinerary.Budget;
-            existing.StartDate = itinerary.StartDate;
-            existing.EndDate = itinerary.EndDate;
+            existing.StartDate = DateTime.SpecifyKind(itinerary.StartDate, DateTimeKind.Utc);
+            existing.EndDate = DateTime.SpecifyKind(itinerary.EndDate, DateTimeKind.Utc);
             existing.Image = itinerary.Image;
             existing.Activities = itinerary.Activities;
 
