@@ -116,7 +116,7 @@ public async Task<ActionResult<Itinerary>> PostItinerary(Itinerary itinerary)
             return NoContent();
         }
   [HttpPost("{id}/dayplans")]
-public async Task<IActionResult> AddDayPlan(int id, DayPlan plan)
+public async Task<IActionResult> AddDayPlan(int id, [FromBody] DayPlan plan)
 {
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
