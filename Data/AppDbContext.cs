@@ -36,6 +36,6 @@ public class AppDbContext : IdentityDbContext<UserProfile>
 
          modelBuilder.Entity<DayPlan>()
         .Property(dp => dp.Activities)
-        .HasColumnType("jsonb");
+        .HasColumnType("text[]");
 }
 }
