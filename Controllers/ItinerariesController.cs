@@ -29,8 +29,9 @@ public async Task<ActionResult<IEnumerable<Itinerary>>> GetItineraries()
     if (userId == null)
         return Unauthorized();
 
-  var itineraries = await _context.Itineraries
+var itineraries = await _context.Itineraries
     .Include(i => i.DayPlans)
+    .Where(i => i.UserProfileId == userId)
     .ToListAsync();
 
     return Ok(itineraries);
