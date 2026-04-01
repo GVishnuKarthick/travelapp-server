@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TravelPlanApi.Models;
+namespace TravelPlanApi.Controllers;
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase
@@ -35,7 +36,10 @@ public class AuthController : ControllerBase
         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
         if (!result.Succeeded) return Unauthorized();
 
-        var user = await _userManager.FindByEmailAsync(model.Email);
+        // Use FindByNameAsync since UserName and Email are consistent in this app
+        var user = await _userManager.FindByNameAsync(model.Email);
+        if (user == null) return Unauthorized();
+
         var token = GenerateJwtToken(user);
         return Ok(new { Token = token });
     }
@@ -59,7 +63,7 @@ private string GenerateJwtToken(UserProfile user)
         issuer: _configuration["Jwt:Issuer"],
         audience: _configuration["Jwt:Audience"],
         claims: claims,
-        expires: DateTime.Now.AddHours(2),
+        expires: DateTime.UtcNow.AddHours(2),
         signingCredentials: creds
     );
 
