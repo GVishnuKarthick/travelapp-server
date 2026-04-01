@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelPlanApi.Models;
 using TravelPlanApi.Data;
-using  Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 namespace TravelPlanApi.Controllers
 {
     [ApiController]
