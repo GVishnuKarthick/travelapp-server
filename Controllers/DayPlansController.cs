@@ -6,6 +6,7 @@ using TravelPlanApi.Data;
 namespace TravelPlanApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/itineraries/{itineraryId}/dayplans")]
     public class DayPlansController : ControllerBase
     {
